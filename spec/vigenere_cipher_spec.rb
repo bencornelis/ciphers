@@ -55,6 +55,11 @@ describe Cipher do
       expect(cipher.decode('zabcdefghi')).to eq 'zzzzzzzzzz'
     end
 
+    it 'can handle text with spaces' do
+      plaintext = "this cipher is great";
+      expect(cipher.decode(cipher.encode(plaintext))).to eq plaintext
+    end
+
     it 'can handle messages longer than the key' do
       expect(Cipher.new('abc').encode('iamapandabear'))
         .to eq 'iboaqcnecbfcr'

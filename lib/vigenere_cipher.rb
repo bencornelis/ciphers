@@ -12,11 +12,15 @@ class Cipher
   end
 
   def encode(plaintext)
-    plaintext.gsub(/./).with_index { |letter, idx| encode_letter(letter, idx) }
+    plaintext
+      .gsub(/[a-z]/)
+      .with_index { |letter, idx| encode_letter(letter, idx) }
   end
 
   def decode(ciphertext)
-    ciphertext.gsub(/./).with_index { |letter, idx| decode_letter(letter, idx) }
+    ciphertext
+      .gsub(/[a-z]/)
+      .with_index { |letter, idx| decode_letter(letter, idx) }
   end
 
   private
