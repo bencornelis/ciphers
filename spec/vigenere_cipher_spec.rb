@@ -1,10 +1,10 @@
 require 'rspec'
 require 'vigenere_cipher'
 
-describe Cipher do
+describe VigenereCipher do
   describe 'setting the key' do
     it 'has generates a random key made up of 100 letters' do
-      key = Cipher.new.key
+      key = described_class.new.key
 
       expect(key).to match(/^[a-z]+$/)
       expect(key.length).to eq 100
@@ -12,27 +12,33 @@ describe Cipher do
 
     it 'allows setting a key manually' do
       key = 'abc'
-      cipher = Cipher.new(key)
+      cipher = described_class.new(key)
 
       expect(cipher.key).to eq key
     end
 
     it 'raises an error with an all caps key' do
-      expect { Cipher.new('ABCDE') }.to raise_error ArgumentError, 'Bad key'
+      expect {
+        described_class.new('ABCDE')
+      }.to raise_error ArgumentError, 'Bad key'
     end
 
     it 'raises an error with a numeric key' do
-      expect { Cipher.new('12345') }.to raise_error ArgumentError, 'Bad key'
+      expect {
+        described_class.new('12345')
+      }.to raise_error ArgumentError, 'Bad key'
     end
 
     it 'raises an error with an empty key' do
-      expect { Cipher.new('') }.to raise_error ArgumentError, 'Bad key'
+      expect {
+        described_class.new('')
+      }.to raise_error ArgumentError, 'Bad key'
     end
   end
 
   describe 'encoding and decoding' do
     let(:key) { 'abcdefghij'}
-    let(:cipher) { Cipher.new(key) }
+    let(:cipher) { described_class.new(key) }
 
     it 'can encode' do
       expect(cipher.encode('aaaaaaaaaa')).to eq 'abcdefghij'
@@ -61,7 +67,7 @@ describe Cipher do
     end
 
     it 'can handle messages longer than the key' do
-      expect(Cipher.new('abc').encode('iamapandabear'))
+      expect(described_class.new('abc').encode('iamapandabear'))
         .to eq 'iboaqcnecbfcr'
     end
   end

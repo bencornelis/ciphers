@@ -1,4 +1,4 @@
-class Cipher
+class VigenereCipher
   ALPHABET = ('a'..'z').to_a
   PLACES   = (0..25).to_a
 

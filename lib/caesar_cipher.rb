@@ -1,4 +1,4 @@
-class Cipher
+class CaesarCipher
   attr_reader :shift, :alphabet
 
   def initialize(shift = 4)

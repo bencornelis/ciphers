@@ -1,29 +1,29 @@
 require 'rspec'
 require 'caesar_cipher'
 
-describe Cipher do
+describe CaesarCipher do
   describe 'setting the shift factor' do
     it 'generates a shift factor' do
-      expect(Cipher.new.shift).to be_a Fixnum
+      expect(described_class.new.shift).to be_a Fixnum
     end
 
     it 'allows setting the shift manually' do
       shift = 13
-      cipher = Cipher.new(shift)
+      cipher = described_class.new(shift)
 
       expect(cipher.shift).to eq shift
     end
 
     it 'raises an error with the shift is not an integer' do
       expect {
-        Cipher.new(3.5)
+        described_class.new(3.5)
       }.to raise_error ArgumentError, 'Not a valid shift.'
     end
   end
 
   describe 'encoding and decoding' do
     let(:shift) { 4 }
-    let(:cipher) { Cipher.new(shift) }
+    let(:cipher) { described_class.new(shift) }
 
     it 'can encode' do
       expect(cipher.encode('abc')).to eq 'efg'
@@ -47,7 +47,7 @@ describe Cipher do
     end
 
     it 'can handle negative shifts' do
-      expect(Cipher.new(-3).encode('def')).to eq 'abc'
+      expect(described_class.new(-3).encode('def')).to eq 'abc'
     end
   end
 end
