@@ -31,11 +31,7 @@ class CaesarCipher
   end
 
   def shift_letter(letter, shift_amount)
-    shifted_place = letter_to_place(letter) + shift_amount
+    shifted_place = alphabet.index(letter) + shift_amount
     alphabet[shifted_place % 26]
-  end
-
-  def letter_to_place(letter)
-    alphabet.index(letter)
   end
 end

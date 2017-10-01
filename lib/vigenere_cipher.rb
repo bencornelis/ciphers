@@ -1,14 +1,11 @@
 class VigenereCipher
   ALPHABET = ('a'..'z').to_a
-  PLACES   = (0..25).to_a
 
-  attr_reader :key, :letter_to_place
+  attr_reader :key
 
   def initialize(key=generate_key)
     validate(key)
-
     @key = key
-    @letter_to_place = ALPHABET.zip(PLACES).to_h
   end
 
   def encode(plaintext)
@@ -42,11 +39,11 @@ class VigenereCipher
   end
 
   def shift_letter(letter, shift)
-    shifted_place = letter_to_place[letter] + shift
-    letter_to_place.invert[shifted_place % 26]
+    shifted_place = ALPHABET.index(letter) + shift
+    ALPHABET[shifted_place % 26]
   end
 
   def shift_at(idx)
-    letter_to_place[key[idx % key.length]]
+    ALPHABET.index(key[idx % key.length])
   end
 end
