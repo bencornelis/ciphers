@@ -23,13 +23,16 @@ class CaesarCipher
   end
 
   def encode_letter(letter)
-    encoded_place = (letter_to_place(letter) + shift) % 26
-    alphabet[encoded_place]
+    shift_letter(letter, shift)
   end
 
   def decode_letter(letter)
-    decoded_place = (letter_to_place(letter) - shift + 26) % 26
-    alphabet[decoded_place]
+    shift_letter(letter, -shift)
+  end
+
+  def shift_letter(letter, shift_amount)
+    shifted_place = letter_to_place(letter) + shift_amount
+    alphabet[shifted_place % 26]
   end
 
   def letter_to_place(letter)

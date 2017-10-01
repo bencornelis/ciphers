@@ -34,13 +34,16 @@ class VigenereCipher
   end
 
   def encode_letter(letter, idx)
-    encoded_place = (letter_to_place[letter] + shift_at(idx)) % 26
-    letter_to_place.invert[encoded_place]
+    shift_letter(letter, shift_at(idx))
   end
 
   def decode_letter(letter, idx)
-    decoded_place = (letter_to_place[letter] - shift_at(idx) + 26) % 26
-    letter_to_place.invert[decoded_place]
+    shift_letter(letter, -shift_at(idx))
+  end
+
+  def shift_letter(letter, shift)
+    shifted_place = letter_to_place[letter] + shift
+    letter_to_place.invert[shifted_place % 26]
   end
 
   def shift_at(idx)
